@@ -12,8 +12,16 @@ join loai_dich_vu l on d.ma_loai_dich_vu = l.ma_loai_dich_vu
 where year(h.ngay_lam_hop_dong) = 2020 or (year(h.ngay_lam_hop_dong) = 2021 and not (month(h.ngay_lam_hop_dong) in (1, 2, 3)));
 
 -- task 8 
+-- cach 1: 
 select ho_ten from khach_hang
 group by ho_ten;
+
+-- cach 2:
+select distinct ho_ten from khach_hang;
+
+-- cach 3: 
+select distinct ho_ten from khach_hang union select distinct ho_ten from khach_hang;
+
 
 -- task 9
 select * from khach_hang k join hop_dong h on k.ma_khach_hang = h.ma_khach_hang
