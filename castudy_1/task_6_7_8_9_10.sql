@@ -22,6 +22,7 @@ group by k.ma_khach_hang;
 select * from hop_dong_chi_tiet;
 -- task 10
 select h.ma_hop_dong, h.ngay_lam_hop_dong, h.ngay_ket_thuc, h.tien_dat_coc, count(dk.ma_dich_vu_di_kem) as so_luong_dv_di_kem
- from hop_dong h join hop_dong_chi_tiet hd on h.ma_hop_dong = hd.ma_hop_dong
- join dich_vu_di_kem dk on hd.ma_dich_vu_di_kem = dk.ma_dich_vu_di_kem
+ from hop_dong h 
+ join hop_dong_chi_tiet hd on h.ma_hop_dong = hd.ma_hop_dong
+ right join dich_vu_di_kem dk on hd.ma_dich_vu_di_kem = dk.ma_dich_vu_di_kem
  group by ma_hop_dong;
