@@ -45,15 +45,15 @@ group by dk.ma_dich_vu_di_kem
 having so_luong_dich_vu_di_kem = (select max(so_luong_dich_vu_di_kem) from max_so_luong);
 
 -- task 14 
-select hd.ma_hop_dong, dk.ten_dich_vu_di_kem, count(hdd.ma_dich_vu_di_kem) as so_lan_su_dung
+select hd.ma_hop_dong, lv.ten_loai_dich_vu ,dk.ten_dich_vu_di_kem, count(hdd.ma_dich_vu_di_kem) as so_lan_su_dung
 from hop_dong hd 
 join hop_dong_chi_tiet hdd on hd.ma_hop_dong = hdd.ma_hop_dong
 join dich_vu_di_kem dk on hdd.ma_dich_vu_di_kem = dk.ma_dich_vu_di_kem
+join dich_vu dv on dv.ma_dich_vu = hd.ma_dich_vu
+join loai_dich_vu lv on lv.ma_loai_dich_vu = dv.ma_loai_dich_vu
 group by dk.ma_dich_vu_di_kem
 having so_lan_su_dung = 1;
-
 -- task 15
-
 select nv.ma_nhan_vien, nv.ho_va_ten, td.ten_trinh_do, nv.so_dien_thoai, nv.dia_chi, count(hd.ma_hop_dong) as so_luong_hop_dong_da_lap
 from nhan_vien nv join hop_dong hd on nv.ma_nhan_vien = hd.ma_nhan_vien
 join trinh_do td on td.ma_trinh_do = nv.ma_trinh_do
