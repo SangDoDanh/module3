@@ -1,11 +1,11 @@
-.using-external-css h1 {
-    color: green;
+.content {
+    width: 65%;
+    text-indent: 20px;
+    font-family: Arial sans-serif;
+    font-size: 18px;
+    line-height: 1.6;
+    text-align: justify;
 }
-
-.using-external-css p {
-    color: blue;
-}
-div{
-    margin-top: 16px;
-    border: 1px solid red;
+a{
+    text-decoration: none;
 }
