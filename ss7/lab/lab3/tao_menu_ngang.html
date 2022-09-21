@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .menu{
+            display: flex;
+        }
+        .menu-content{
+            min-width: 150px;
+            list-style: none;
+            background-color: cadetblue;
+            padding: 8px 16px;
+        }
+        .menu-link{
+            font-family: sans-serif;
+            font-size: 20px;
+            text-decoration: none;
+            color: whitesmoke;
+        }
+        .menu-content:hover{
+            background-color: darkgray;
+        }
+        .apple-menu, .samsung-menu{
+            position: relative;
+        }
+        .menu-sub{
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            display: none;
+        }
+        .menu-sub .menu-content{
+            min-width: 200px;
+        }
+        .apple-menu:hover .apple-menu-sub{
+            display: block;
+        }
+        .samsung-menu:hover .samsung-menu-sub{
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<ul class="menu">
+    <li class="menu-content apple-menu">
+        <a href="#" class="menu-link">Apple</a>
+        <ul class="menu-sub apple-menu-sub">
+            <li class="menu-content"><a href="#" class="menu-link">IPhone</a></li>
+            <li class="menu-content"><a href="" class="menu-link">IMac</a></li>
+            <li class="menu-content"><a href="" class="menu-link">IPad</a></li>
+        </ul>
+    </li>
+    <li class="menu-content samsung-menu">
+        <a href="#" class="menu-link">SamSung</a>
+        <ul class="menu-sub samsung-menu-sub">
+            <li class="menu-content"><a href="#" class="menu-link">Samsung note</a></li>
+            <li class="menu-content"><a href="" class="menu-link">Tablet</a></li>
+            <li class="menu-content"><a href="" class="menu-link">Samsung Z-Fold4</a></li>
+        </ul>
+    </li>
+    <li class="menu-content"><a href="#" class="menu-link">Xiaomi</a></li>
+    <li class="menu-content"><a href="#" class="menu-link">Oppo</a></li>
+</ul>
+</body>
+</html>
