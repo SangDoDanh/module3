@@ -1,0 +1,228 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/*css-header-menu*/
+header{
+    background: #e6e3e382;
+}
+.menu{
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+}
+
+.menu-band{
+    margin-right: 16px;
+}
+.menu-link{
+
+}
+.menu-link-nav{
+    display: flex;
+    margin: 0;
+    list-style: none;
+    padding: 0;
+}
+
+.menu-link-item{
+    margin-right: 16px;
+}
+.menu-link-link{
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    color: #1d1d1d;
+}
+.menu-link-link.active{
+    color: #ea6016;
+}
+
+.menu-search-account {
+    display: flex;
+    flex: 1;
+    justify-content: end;
+}
+.search {
+    margin-right: 12px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 6px;
+    border-radius: 24px;
+    border: 1px solid red;
+
+}
+.search:hover{
+    box-shadow: 0.5px 0.5px 2px #ea6016;
+}
+.search .s-text{
+    border: none;
+    font-size: 16px;
+    outline: none;
+    padding-left: 12px;
+    background: transparent;
+}
+.search .s-btn-search{
+    position: absolute;
+    right: 16px;
+    border: none;
+    background: transparent;
+    color: #ea6016;
+
+}
+.search .s-btn-search i{
+    font-size: 20px;
+}
+.account {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.btn-sign-in {
+    background: transparent;
+    border :1px solid #ea6016;
+    color: #ea6016;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 20px;
+    min-width: 96px;
+    margin-right: 12px;
+}
+.btn-sign-in:hover {
+    box-shadow: 0.5px 0.5px 2px #ea6016;
+}
+.btn-new-account {
+    margin-right: 12px;
+    min-width: 96px;
+    background: #ea6016;
+    color: white;
+    font-size: 16px;
+    padding: 6px;
+    border-radius: 20px;
+    border: 1px solid white;
+
+}
+.btn-new-account:hover{
+    box-shadow: 0.5px 0.5px 2px #ea6016;
+
+}
+.btn-user {
+    height: 38px;
+    width: 38px;
+    border: none;
+    background: #ea6016;
+    padding: 6px;
+    border-radius: 50%;
+}
+.btn-user i{
+    font-size: 22px;
+    color: white;
+}
+.video-play{
+    padding: 12px;
+}
+.info-video-play{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top: 12px;
+    align-items: center;
+}
+.title-video-play{
+    width: 100%;
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 500;
+}
+.like-dislike{
+    display: flex;
+    align-items: center;
+}
+.view-video-play{
+    color: #ea6016;
+}
+.like{
+    margin-right: 16px;
+}
+
+.like i{
+    font-size: 20px;
+    color: #ea6016;
+}
+.video-detail{
+    margin-top: 12px;
+    display: flex;
+}
+
+.des-info .des-key{
+    color: #747474;
+}
+.video-detail .des{
+    width: 50%;
+}
+.video-comment{
+    flex: 1;
+    padding-left: 16px;
+}
+.comment{
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+}
+.comment-heading{
+    font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    border-bottom: 1px solid #ea6016;
+}
+.comment-avatar{
+    width: 48px;
+    margin-right: 16px;
+}
+.comment-avatar img{
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+}
+.comment-content {
+    font-size: 12px;
+    font-family: 'Josefin Sans', sans-serif;
+    color: #4b5156;
+}
+.play-list{
+    padding: 12px;
+}
+.videos {
+    display: flex;
+    align-items: stretch;
+    margin-bottom: 12px;
+}
+.videos-img{
+    margin-right: 12px;
+    width: 50%;
+}
+.video-title{
+    width: 50%;
+}
+.videos-img img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+.video-title .video-title-heading span{
+    font-family: 'Josefin Sans', sans-serif;
+    font-size: 16px;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    color: #ea6016;
+}

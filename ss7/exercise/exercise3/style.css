@@ -1,0 +1,21 @@
+
+.box-asd{
+    flex-direction: column;
+    padding-top: 24px;
+}
+.ads{
+    height: 80px;
+    border: 1px solid red;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.ads p{
+    margin: 0;
+    padding: 0;
+}
+.content-text{
+    height: 300px;
+}
