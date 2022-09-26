@@ -19,13 +19,13 @@ public class CalculateDiscountServlet extends HttpServlet {
             double discountAmount = price * discount * 0.01;
             double discountPrice = price - discountAmount;
             String priceInvalid = "price invalid";
-            String disInvalid = "discount invalid";
+            String discountInvalid = "discount invalid";
 
             if(price < 0) {
                 request.setAttribute("error", priceInvalid);
                 request.getRequestDispatcher("/Error.jsp").forward(request, response);
             } else if(discount > 100 || discount < 0) {
-                request.setAttribute("error", disInvalid);
+                request.setAttribute("error", discountInvalid);
                 request.getRequestDispatcher("/Error.jsp").forward(request, response);
             } else {
                 request.setAttribute("description", description);
