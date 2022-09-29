@@ -1,0 +1,27 @@
+
+
+* {
+    font-family: sans-serif;
+}
+table {
+    border-collapse: collapse;
+    width: 80%;
+}
+tr{
+    border-bottom: 1px solid #c5c5c5;
+}
+td {
+    padding: 12px 0px;
+    text-align: center;
+}
+img {
+    width: 50px;
+}
+h1{
+    text-align: center;
+}
+body{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
