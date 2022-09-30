@@ -1,13 +1,14 @@
-package com.codegym.service;
+package com.codegym.service.impl;
 
 import com.codegym.model.Customer;
+import com.codegym.service.ICustomerService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CustomerServiceImpl implements ICustomerService{
+public class CustomerServiceImpl implements ICustomerService {
 
     private static Map<Integer, Customer> customers;
 

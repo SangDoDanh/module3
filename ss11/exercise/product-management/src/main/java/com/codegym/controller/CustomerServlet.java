@@ -1,7 +1,7 @@
 package com.codegym.controller;
 
 import com.codegym.model.Customer;
-import com.codegym.service.CustomerServiceImpl;
+import com.codegym.service.impl.CustomerServiceImpl;
 import com.codegym.service.ICustomerService;
 
 import javax.servlet.*;
