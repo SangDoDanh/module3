@@ -6,6 +6,7 @@
     <title>product List</title>
     <script src="https://kit.fontawesome.com/68540fcb59.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../product/style.css">
 </head>
 <body class="d-flex justify-content-center">
 <div class="app" style="width: 80%">
@@ -17,6 +18,47 @@
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
     </div>
+    <form class="py-4" method="post" action="/products" id="form-create-product">
+        <h2>Create new Customer</h2>
+<%--        name--%>
+        <c:if test="${!nameValid && nameValid != null}">
+            <input class="inValid" type="text" name="productName" placeholder="Name">
+
+        </c:if>
+        <c:if test="${nameValid || nameValid == null}">
+            <input type="text" name="productName" placeholder="Name">
+        </c:if>
+<%--        end name--%>
+<%--        description--%>
+        <c:if test="${!descriptionValid && nameValid != null}">
+            <input class="inValid" type="text" name="productDescription" placeholder="Description">
+
+        </c:if>
+        <c:if test="${descriptionValid || nameValid == null}">
+            <input type="text" name="productDescription" placeholder="Description">
+        </c:if>
+<%--        end description--%>
+<%--        producer--%>
+        <c:if test="${!producerValid && nameValid != null}">
+            <input class="inValid" type="text" name="productProducer" placeholder="Producer">
+
+        </c:if>
+        <c:if test="${producerValid || nameValid == null}">
+            <input type="text" name="productProducer" placeholder="Producer">
+        </c:if>
+<%--        end producer--%>
+
+<%--      price--%>
+        <c:if test="${!priceValid && nameValid != null}">
+            <input class="inValid" type="text" name="productPrice" value="0">
+        </c:if>
+        <c:if test="${priceValid || nameValid == null}">
+            <input type="text" name="productPrice" value="0">
+        </c:if>
+<%--        end price--%>
+        <input type="text" style="display: none" name="action" value="create">
+        <input type="submit" value="New Product">
+    </form>
     <table class="table table-secondary">
         <tr class="table-dark">
             <th>Name</th>
@@ -57,31 +99,31 @@
             </tr>
         </c:forEach>
     </table>
+
+<%--Page--%>
     <div class="pageCustomer py-2">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
+                    <a class="page-link" href="<c:url value="/products?indexPage=${indexPage - 1}"/>">Previous</a>
+                </li>
+                <c:forEach var = "i" begin = "1" end = "${amountPage}">
+                    <c:if test="${i == indexPage}">
+                        <li class="page-item active">
+                    </c:if>
+                    <c:if test="${!(i == indexPage)}">
+                        <li class="page-item">
+                    </c:if>
+                        <a class="page-link" href="<c:url value="/products?indexPage=${i}"/>">${i}</a>
+                    </li>
+                </c:forEach>
+                <li class="page-item">
+                    <a class="page-link" href="<c:url value="/products?indexPage=${indexPage + 1}"/>">Next</a>
                 </li>
             </ul>
         </nav>
     </div>
-
-    <form method="post" action="/products" id="form-create-product" style="display: none">
-        <h2>Create new Customer</h2>
-        <input type="text" name="productName" placeholder="Name">
-        <input type="text" name="productDescription" placeholder="Description">
-        <input type="text" name="productProducer" placeholder="Producer">
-        <input type="text" name="productPrice" placeholder="Price">
-        <input type="text" style="display: none" name="action" value="create">
-        <input type="submit" value="New Product">
-    </form>
+<%--end page----------------------------------------------------------------------%>
     <form method="post" action="/products" id="form-edit-product" style="display: none; padding: 16px 0" >
         <h2>Edit Product</h2>
         <input type="text" name="productName" id="product-name-edit">
@@ -89,7 +131,7 @@
         <input type="text" name="productProducer" id="product-producer-edit">
         <input type="text" name="productPrice" id="product-price-edit">
         <input type="text" style="display: none" name="action" value="edit">
-        <input id="txt-product-id"  type="text" name="productId" value="">
+        <input id="txt-product-id" hidden  type="text" name="productId" value="">
         <input type="submit" value="Update">
     </form>
     <form method="post" action="/products" style="display: none">
@@ -105,8 +147,9 @@
     let eEditProduct = document.querySelectorAll(".btn-edit-product");
     let eDeleteProduct = document.querySelectorAll(".btn-delete-product");
     let eProductId = document.getElementById('txt-product-id');
-    let eFormCreateProduct = document.getElementById('form-create-product');
+        let eFormCreateProduct = document.getElementById('form-create-product');
     let eFormEditProduct = document.getElementById('form-edit-product');
+    let ePageLink = document.querySelectorAll(".page-link");
 
 
     eEditProduct.forEach(function (value) {
@@ -134,7 +177,11 @@
         })
     });
     eCreateProduct.addEventListener('click',function () {
-        eFormCreateCustomer.style.display = "block";
+        if(eFormCreateProduct.classList.contains('display-none')) {
+            eFormCreateProduct.classList.remove('display-none')
+        } else {
+            eFormCreateProduct.classList.add('display-none');
+        }
     });
 </script>
 </body>

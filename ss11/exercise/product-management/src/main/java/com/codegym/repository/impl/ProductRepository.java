@@ -12,7 +12,7 @@ import java.util.Map;
 public class ProductRepository implements IProductRepository {
     private static Map<Integer, Product> productList = new HashMap<>();
     static {
-        List<Product> data = inIt(30);
+        List<Product> data = inIt(80);
         for(int i = 0; i < data.size(); i++) {
             productList.put(i, data.get(i));
         }
