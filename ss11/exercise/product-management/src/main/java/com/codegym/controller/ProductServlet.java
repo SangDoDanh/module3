@@ -14,7 +14,7 @@ import java.util.List;
 @WebServlet(name = "ProductServlet", urlPatterns = "/products")
 public class ProductServlet extends HttpServlet {
     private static IProductService productService = new ProductService();
-    private static final int AMOUNT_ELEMENT_IN_PAGE = 8;
+    private static final int AMOUNT_ELEMENT_IN_PAGE = 20;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");

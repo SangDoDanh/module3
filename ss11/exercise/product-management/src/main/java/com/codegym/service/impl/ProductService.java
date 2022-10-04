@@ -41,7 +41,6 @@ public class ProductService implements IProductService {
     }
 
     public boolean checkProductPrice(double price) {
-
         if(price < 0) {
             return false;
         }
