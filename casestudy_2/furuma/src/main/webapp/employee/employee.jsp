@@ -14,19 +14,18 @@
     <title>Employee</title>
     <link rel="stylesheet" href="../bootstrap/bootstrap_5.2.2/css/bootstrap.min.css">
 </head>
-<body>
-    <h1>Page Employee</h1>
+<body class="container">
+<jsp:include page="/header/header.jsp" />
+    <h1 style="margin-top: 32px">Page Employee</h1>
 
-    <table class="table table-dark">
-        <tr>
+    <table class="table table-secondary table-hover">
+        <tr class="table-active">
             <th>ID</th>
             <th>Name</th>
             <th>Birth Day</th>
             <th>Email</th>
             <th>Address</th>
             <th>Position</th>
-            <th>Education</th>
-            <th>Division</th>
             <th>salary</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -39,10 +38,8 @@
                 <td>${e.email}</td>
                 <td>${e.address}</td>
                 <td>
-                    ${e.positionId}
+                    ${positionMap.get(e.positionId)}
                 </td>
-                <td>${e.educationDegreeId}</td>
-                <td>${e.divisionId}</td>
                 <td>
                     <fmt:formatNumber type="number" maxFractionDigits = "3" value="${e.salary}" />
                 </td>
@@ -55,7 +52,6 @@
             </tr>
         </c:forEach>
     </table>
-
 <script src="../bootstrap/bootstrap_5.2.2/js/bootstrap.min.js"></script>
 </body>
 </html>
