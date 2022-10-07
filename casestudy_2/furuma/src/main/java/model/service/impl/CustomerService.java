@@ -34,4 +34,9 @@ public class CustomerService implements ICustomerService {
     public void update(Customer customer) {
         CUSTOMER_REPOSITORY.update(customer);
     }
+
+    @Override
+    public List<Customer> search(String keySearch, int customerTypeSearch) {
+        return CUSTOMER_REPOSITORY.search(keySearch, customerTypeSearch);
+    }
 }

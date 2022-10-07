@@ -21,7 +21,7 @@
     <form style="flex: 1;" action="/customer" method="post" class="d-flex justify-content-end m-0 p-0 align-items-center">
         <input type="text" name="action" value="search" hidden>
         <input class="form-control w-auto" type="text" placeholder="Search by name..." name="keySearch">
-        <select class="form-select w-auto mx-4" name="customerType">
+        <select class="form-select w-auto mx-4" name="customerTypeSearch">
             <option value="" hidden>Type</option>
             <c:forEach items="${customerTypeMap}" var="customerType">
                 <option value="${customerType.key}">${customerType.value}</option>

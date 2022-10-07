@@ -15,4 +15,6 @@ public interface ICustomerRepository {
     void create(Customer customer);
 
     void update(Customer customer);
+
+    List<Customer> search(String keySearch, int customerTypeSearch);
 }

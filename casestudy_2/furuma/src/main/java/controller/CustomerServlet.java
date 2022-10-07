@@ -57,9 +57,23 @@ public class CustomerServlet extends HttpServlet {
             case "edit":
                 edit(request, response);
                 break;
+            case "search":
+                search(request, response);
+                break;
             default:
                 break;
         }
+    }
+
+    private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String keySearch = request.getParameter("keySearch");
+        int customerTypeSearch = Integer.parseInt(request.getParameter("customerTypeSearch"));
+        List<Customer> customerListSearch = CUSTOMER_SERVICE.search(keySearch, customerTypeSearch);
+        Map<Integer, String> customerTypeMap = CUSTOMER_SERVICE.getCustomerTypeAll();
+        request.setAttribute("customerTypeMap", customerTypeMap);
+        request.setAttribute("customerList", customerListSearch);
+        request.getRequestDispatcher("/customer/customer.jsp").forward(request, response);
+
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
