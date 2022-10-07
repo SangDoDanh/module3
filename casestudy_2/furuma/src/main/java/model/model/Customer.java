@@ -17,6 +17,17 @@ public class Customer {
     public Customer() {
     }
 
+    public Customer(String name, int customerTypeId, java.sql.Date date, int gender, String idCard, String phoneNumber, String email, String address) {
+        this.name = name;
+        this.customerTypeId = customerTypeId;
+        Date = date;
+        this.gender = gender;
+        this.idCard = idCard;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.address = address;
+    }
+
     public Customer(int id, String name, int customerTypeId, Date date, int gender, String idCard, String phoneNumber, String email, String address) {
         this.id = id;
         this.name = name;

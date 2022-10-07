@@ -8,6 +8,7 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +25,9 @@ public class CustomerServlet extends HttpServlet {
                 delete(request, response);
                 break;
             case"create":
-                response.sendRedirect("/customer/add.jsp");
+                Map<Integer, String> customerTypeMap = CUSTOMER_SERVICE.getCustomerTypeAll();
+                request.setAttribute("customerTypeMap", customerTypeMap);
+                request.getRequestDispatcher("/customer/add.jsp").forward(request, response);
                 break;
             default:
                 show(request, response);
@@ -49,10 +52,45 @@ public class CustomerServlet extends HttpServlet {
             case "delete":
                 delete(request, response);
                 break;
+            case "create":
+                create(request, response);
+            case "edit":
+                edit(request, response);
+                break;
             default:
-                show(request, response);
                 break;
         }
+    }
+
+    private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {
+         int id = Integer.parseInt(request.getParameter("id"));
+         String name = request.getParameter("name");
+         int customerTypeId = Integer.parseInt(request.getParameter("customerTypeId"));
+         Date dayOfBirth = Date.valueOf(request.getParameter("dayOfBirth"));
+         int gender = Integer.parseInt(request.getParameter("gender"));
+         String idCard = request.getParameter("idCard");
+         String phoneNumber = request.getParameter("phoneNumber");
+         String email = request.getParameter("email");
+         String address = request.getParameter("address");
+        Customer customer = new Customer(id, name,customerTypeId,dayOfBirth, gender, idCard,
+                phoneNumber, email, address);
+        CUSTOMER_SERVICE.update(customer);
+        response.sendRedirect("/customer");
+    }
+
+    private void create(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+         String name = request.getParameter("name");
+         int customerTypeId = Integer.parseInt(request.getParameter("customerTypeId"));
+         Date date = Date.valueOf(request.getParameter("dayOfBirth"));
+         int gender = Integer.parseInt(request.getParameter("gender"));
+         String idCard = request.getParameter("idCard");
+         String phoneNumber = request.getParameter("phoneNumber");
+         String email = request.getParameter("email");
+         String address =request.getParameter("address");
+         Customer customer = new Customer(name, customerTypeId, date, gender, idCard, phoneNumber, email, address);
+         CUSTOMER_SERVICE.create(customer);
+         response.sendRedirect("/customer");
+//         show(request, response);
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {

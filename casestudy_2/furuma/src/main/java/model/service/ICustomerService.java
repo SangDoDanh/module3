@@ -11,4 +11,8 @@ public interface ICustomerService {
     Map<Integer, String> getCustomerTypeAll();
 
     void delete(int id);
+
+    void create(Customer customer);
+
+    void update(Customer customer);
 }

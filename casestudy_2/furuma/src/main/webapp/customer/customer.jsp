@@ -11,6 +11,7 @@
 <head>
     <title>Customer</title>
     <link rel="stylesheet" href="../bootstrap/bootstrap_5.2.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../customer/css/customer.css">
 </head>
 <body class="container">
 <jsp:include page="/header/header.jsp" />
@@ -52,17 +53,21 @@
                     DELETE
                 </button>
             </td>
-            <td><a href="#" class="btn btn-warning">EDIT</a></td>
+            <td>
+                <button onclick="editCustomer(`${customer.id}`, `${customer.name}`, `${customer.getDate()}`, `${customer.idCard}`, `${customer.phoneNumber}`, `${customer.email}`, `${customer.address}`)" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
+                    Edit
+                </button>
+            </td>
         </tr>
     </c:forEach>
 </table>
 
 <!-- Modal Delete-->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header bg-light">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Delete Customer</h1>
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Customer</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -82,6 +87,43 @@
         </div>
     </div>
 </div>
+<!-- End Modal Delete-->
+
+<!-- Modal edit-->
+<div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <form action="/customer" method="post" id="form-edit">
+            <div class="modal-content border-0" >
+                <div class="modal-header bg-warning">
+                    <h1 class="modal-title fs-5" id="editModalLabel">Edit Customer</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input class="w-100" type="text" placeholder="Name" id="name" name="name"><br>
+                    <select class="w-100" name="customerTypeId">
+                        <c:forEach items="${customerTypeMap}" var="customerType">
+                            <option value="${customerType.key}">${customerType.value}</option>
+                        </c:forEach>
+                    </select><br>
+                    <input class="w-100" type="date" name="dayOfBirth" id="dayOfBirth"><br>
+                    <input type="radio" name="gender" value="1" checked> Nam    <input type="radio" name="gender" value="0"> NU<br>
+                    <input class="w-100" type="text" placeholder="Id card" name="idCard" id="idCard"><br>
+                    <input class="w-100" type="text" placeholder="phone number" id="phoneNumber" name="phoneNumber"><br>
+                    <input class="w-100" type="text" placeholder="email" name="email" id="email"><br>
+                    <input class="w-100" type="text" placeholder="address" name="address" id="address"><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
+                        <input type="text" name="id" hidden id="idEdit">
+                        <input type="text" name="action" value="edit" hidden>
+                        <button type="submit" class="btn btn-warning">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Modal edit-->
+
 <script>
     const eIdCustomerDelete = document.getElementById('id-customer');
     const eNameCustomerDelete = document.getElementById('name-customer');
@@ -90,6 +132,17 @@
         eIdCustomerDelete.innerText = id;
         eNameCustomerDelete.innerText = name;
         document.getElementById('id-delete').value = id;
+    }
+    function editCustomer(id,name, date, idCard,phoneNumber, email , address) {
+        document.getElementById('name').value = name;
+        document.getElementById('dayOfBirth').value = date;
+        document.getElementById('idCard').value = idCard;
+        document.getElementById('phoneNumber').value = phoneNumber;
+        document.getElementById('email').value = email;
+        document.getElementById('address').value = address;
+        document.getElementById('idEdit').value = id;
+        console.log(document.getElementById('date'));
+
     }
 </script>
 <script src="../bootstrap/bootstrap_5.2.2/js/bootstrap.min.js"></script>

@@ -24,4 +24,14 @@ public class CustomerService implements ICustomerService {
     public void delete(int id) {
         CUSTOMER_REPOSITORY.delete(id);
     }
+
+    @Override
+    public void create(Customer customer) {
+        CUSTOMER_REPOSITORY.create(customer);
+    }
+
+    @Override
+    public void update(Customer customer) {
+        CUSTOMER_REPOSITORY.update(customer);
+    }
 }

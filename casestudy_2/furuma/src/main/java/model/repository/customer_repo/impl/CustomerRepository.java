@@ -78,4 +78,59 @@ public class CustomerRepository implements ICustomerRepository {
         }
     }
 
+    @Override
+    public void create(Customer customer) {
+        String sql = "insert into customer(customer_type_id, name, date_of_birth, gender, id_card, phone_number, email, address) \n" +
+                "values(?, ?, ?, ?, ?, ?, ?, ?);";
+        Connection conn = DAO.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, customer.getCustomerTypeId());
+            ps.setString(2, customer.getName());
+            ps.setDate(3,customer.getDate());
+            ps.setInt(4,customer.getGender());
+            ps.setString(5,customer.getIdCard());
+            ps.setString(6,customer.getPhoneNumber());
+            ps.setString(7,customer.getEmail());
+            ps.setString(8,customer.getAddress());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void update(Customer customer) {
+
+        String sql = "update customer\n" +
+                "set \n" +
+                "customer_type_id = ?,\n" +
+                " name = ?,\n" +
+                " date_of_birth = ?,\n" +
+                " gender = ?,\n" +
+                " id_card = ?,\n" +
+                " phone_number = ?,\n" +
+                " email = ?,\n" +
+                " address = ?\n" +
+                "where id = ?;";
+        Connection conn = DAO.getConnection();
+        try {
+            // customer_type_id, name, date_of_birth, gender,
+            // id_card, phone_number, email, address,id
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, customer.getCustomerTypeId());
+            ps.setString(2, customer.getName());
+            ps.setDate(3,customer.getDate());
+            ps.setInt(4,customer.getGender());
+            ps.setString(5,customer.getIdCard());
+            ps.setString(6,customer.getPhoneNumber());
+            ps.setString(7,customer.getEmail());
+            ps.setString(8,customer.getAddress());
+            ps.setInt(9,customer.getId());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
