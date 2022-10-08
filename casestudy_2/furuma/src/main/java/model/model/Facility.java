@@ -10,7 +10,7 @@ public class Facility {
     private int maxPeople;
     private int rentTypeId;
     private int facilityTypeId;
-    private String standard_room;
+    private String standardRoom;
     private String descriptionOtherConvenience;
     private double poolArea;
     private int numberOfFloors;
@@ -28,7 +28,7 @@ public class Facility {
         this.maxPeople = maxPeople;
         this.rentTypeId = rentTypeId;
         this.facilityTypeId = facilityTypeId;
-        this.standard_room = standard_room;
+        this.standardRoom = standard_room;
         this.descriptionOtherConvenience = descriptionOtherConvenience;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
@@ -91,12 +91,12 @@ public class Facility {
         this.facilityTypeId = facilityTypeId;
     }
 
-    public String getStandard_room() {
-        return standard_room;
+    public String getStandardRoom() {
+        return standardRoom;
     }
 
-    public void setStandard_room(String standard_room) {
-        this.standard_room = standard_room;
+    public void setStandardRoom(String standardRoom) {
+        this.standardRoom = standardRoom;
     }
 
     public String getDescriptionOtherConvenience() {
