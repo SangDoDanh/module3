@@ -44,14 +44,4 @@ public class CustomerService implements ICustomerService {
     public List<Customer> search(String keySearch, String customerTypeSearch, int gender) {
         return CUSTOMER_REPOSITORY.search(keySearch, customerTypeSearch, gender);
     }
-
-    @Override
-    public String click() {
-        return CUSTOMER_REPOSITORY.click();
-    }
-
-    @Override
-    public String getSomething(int id) {
-        return CUSTOMER_REPOSITORY.getSomething(id);
-    }
 }

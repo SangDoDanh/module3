@@ -200,34 +200,10 @@ public class CustomerRepository implements ICustomerRepository {
         return customerListSearch;
     }
 
-    @Override
-    public String click() {
-        return "Hello hello hello";
-    }
 
-    @Override
-    public List<Customer> findAll() {
-        return null;
-    }
 
-    @Override
-    public String getSomething(int id) {
-        String result = "";
-        Connection conn = DAO.getConnection();
-        String sql = "select * from customer where id = ?";
-//        select * from customer where id = 10 and name = huy
-        try {
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
 
-            while (rs.next()) {
-                result += rs.getString("name");
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
+
+
 
 }

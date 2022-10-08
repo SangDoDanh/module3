@@ -7,7 +7,7 @@ public class Customer {
     private int id;
     private String name;
     private int customerTypeId;
-    private Date Date;
+    private Date date;
     private int gender;
     private String idCard;
     private String phoneNumber;
@@ -20,7 +20,7 @@ public class Customer {
     public Customer(String name, int customerTypeId, java.sql.Date date, int gender, String idCard, String phoneNumber, String email, String address) {
         this.name = name;
         this.customerTypeId = customerTypeId;
-        Date = date;
+        this.date = date;
         this.gender = gender;
         this.idCard = idCard;
         this.phoneNumber = phoneNumber;
@@ -32,7 +32,7 @@ public class Customer {
         this.id = id;
         this.name = name;
         this.customerTypeId = customerTypeId;
-        Date = date;
+        this.date = date;
         this.gender = gender;
         this.idCard = idCard;
         this.phoneNumber = phoneNumber;
@@ -65,11 +65,11 @@ public class Customer {
     }
 
     public Date getDate() {
-        return Date;
+        return date;
     }
 
     public void setDate(Date date) {
-        Date = date;
+        this.date = date;
     }
 
     public int getGender() {

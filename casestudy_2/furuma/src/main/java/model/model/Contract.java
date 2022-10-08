@@ -9,7 +9,7 @@ public class Contract {
     private Date endDay;
     private double deposit;
     private int employeeId;
-    private int CustomerId;
+    private int customerId;
     private int facilityID;
 
     public Contract() {
@@ -21,7 +21,7 @@ public class Contract {
         this.endDay = endDay;
         this.deposit = deposit;
         this.employeeId = employeeId;
-        CustomerId = customerId;
+        this.customerId = customerId;
         this.facilityID = facilityID;
     }
 
@@ -66,11 +66,11 @@ public class Contract {
     }
 
     public int getCustomerId() {
-        return CustomerId;
+        return customerId;
     }
 
     public void setCustomerId(int customerId) {
-        CustomerId = customerId;
+        this.customerId = customerId;
     }
 
     public int getFacilityID() {

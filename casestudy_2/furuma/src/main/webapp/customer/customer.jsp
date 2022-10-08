@@ -70,11 +70,6 @@
     </c:forEach>
 </table>
 
-<a href="/customer?action=click">ClickMe</a>
-<span>${hello}</span>
-<a href="/customer?action=getSomething">ClickMe</a>
-<span>${results}</span>
-
 <!-- Modal Delete-->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">

@@ -22,22 +22,20 @@ public class FacilityRepository implements IFacilityRepository {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            //id, name, area, cost, max_people, rent_type_id, facility_type_id, standard_room,
-            // description_other_convenience, pool_area, number_of_floors, facility_free
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 int are = rs.getInt("area");
                 double cost = rs.getDouble("cost");
                 int maxPeople = rs.getInt("max_people");
-                int rent_type_id = rs.getInt("rent_type_id");
-                int facility_type_id = rs.getInt("facility_type_id");
-                String standard_room = rs.getString("standard_room");
-                String description_other_convenience = rs.getString("description_other_convenience");
-                double pool_area = rs.getDouble("pool_area");
-                int number_of_floors = rs.getInt("number_of_floors");
-                String facility_free = rs.getString("facility_free");
-                Facility facility = new Facility(id, name,are,cost,maxPeople,rent_type_id,facility_type_id,standard_room,description_other_convenience,pool_area,number_of_floors,facility_free);
+                int rentTypeId = rs.getInt("rent_type_id");
+                int facilityTypeId = rs.getInt("facility_type_id");
+                String standardRoom = rs.getString("standard_room");
+                String descriptionOtherConvenience = rs.getString("description_other_convenience");
+                double poolArea = rs.getDouble("pool_area");
+                int numberOfFloors = rs.getInt("number_of_floors");
+                String facilityFree = rs.getString("facility_free");
+                Facility facility = new Facility(id, name,are,cost,maxPeople,rentTypeId,facilityTypeId,standardRoom,descriptionOtherConvenience,poolArea,numberOfFloors,facilityFree);
                 facilityList.add(facility);
             }
         } catch (SQLException e) {
@@ -54,8 +52,6 @@ public class FacilityRepository implements IFacilityRepository {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            //id, name, area, cost, max_people, rent_type_id, facility_type_id, standard_room,
-            // description_other_convenience, pool_area, number_of_floors, facility_free
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -75,8 +71,6 @@ public class FacilityRepository implements IFacilityRepository {
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            //id, name, area, cost, max_people, rent_type_id, facility_type_id, standard_room,
-            // description_other_convenience, pool_area, number_of_floors, facility_free
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");

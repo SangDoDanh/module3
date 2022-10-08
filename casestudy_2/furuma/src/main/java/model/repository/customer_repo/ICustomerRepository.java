@@ -19,9 +19,4 @@ public interface ICustomerRepository {
     List<Customer> search(String keySearch, String customerTypeSearch);
 
     List<Customer> search(String keySearch, String customerTypeSearch, int gender);
-
-    String click();
-    List<Customer> findAll();
-
-    String getSomething(int id);
 }

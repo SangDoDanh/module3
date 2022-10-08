@@ -32,33 +32,10 @@ public class CustomerServlet extends HttpServlet {
             case "search":
                 search(request, response);
                 break;
-            case "click":
-                click(request, response);
-                break;
-            case "getSomething":
-                getSomething(request, response);
-                break;
             default:
                 show(request, response);
                 break;
         }
-    }
-
-    private void getSomething(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //int cusId = Integer.parseInt(request.getParameter("id-customer"));
-
-        int id = 10;
-        String results = CUSTOMER_SERVICE.getSomething(id);
-        request.setAttribute("results", results);
-        request.getRequestDispatcher("customer/customer.jsp").forward(request, response);
-    }
-
-    private void click(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String result = CUSTOMER_SERVICE.click();
-        List<Customer> customerList = CUSTOMER_SERVICE.getAll();
-        request.setAttribute("customerList", customerList);
-        request.setAttribute("hello", result);
-        request.getRequestDispatcher("/customer/customer.jsp").forward(request, response);
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
