@@ -3,7 +3,6 @@ package model.model;
 import java.sql.Date;
 
 public class Contract {
-    //id, start_date, end_date, deposit, employee_id, customer_id, facility_id
     private int id;
     private Date startDay;
     private Date endDay;

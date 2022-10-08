@@ -1,8 +1,6 @@
 package model.model;
 
 public class Facility {
-    //id, name, area, cost, max_people, rent_type_id, facility_type_id, standard_room,
-    // description_other_convenience, pool_area, number_of_floors, facility_free
     private int id;
     private String name;
     private int are;

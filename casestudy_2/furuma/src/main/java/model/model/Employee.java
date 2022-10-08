@@ -4,8 +4,6 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 public class Employee {
-    //id, name, date_of_birth, id_card, salary, phone_number, email,
-    //address, position_id, education_degree_id, division_id, user_name
     private int id;
     private String name;
     private Date dateOfBirth;
