@@ -29,10 +29,36 @@ public class CustomerServlet extends HttpServlet {
                 request.setAttribute("customerTypeMap", customerTypeMap);
                 request.getRequestDispatcher("/customer/add.jsp").forward(request, response);
                 break;
+            case "search":
+                search(request, response);
+                break;
+            case "click":
+                click(request, response);
+                break;
+            case "getSomething":
+                getSomething(request, response);
+                break;
             default:
                 show(request, response);
                 break;
         }
+    }
+
+    private void getSomething(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //int cusId = Integer.parseInt(request.getParameter("id-customer"));
+
+        int id = 10;
+        String results = CUSTOMER_SERVICE.getSomething(id);
+        request.setAttribute("results", results);
+        request.getRequestDispatcher("customer/customer.jsp").forward(request, response);
+    }
+
+    private void click(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String result = CUSTOMER_SERVICE.click();
+        List<Customer> customerList = CUSTOMER_SERVICE.getAll();
+        request.setAttribute("customerList", customerList);
+        request.setAttribute("hello", result);
+        request.getRequestDispatcher("/customer/customer.jsp").forward(request, response);
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,12 +80,11 @@ public class CustomerServlet extends HttpServlet {
                 break;
             case "create":
                 create(request, response);
+                break;
             case "edit":
                 edit(request, response);
                 break;
-            case "search":
-                search(request, response);
-                break;
+
             default:
                 break;
         }
@@ -67,13 +92,19 @@ public class CustomerServlet extends HttpServlet {
 
     private void search(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String keySearch = request.getParameter("keySearch");
-        int customerTypeSearch = Integer.parseInt(request.getParameter("customerTypeSearch"));
-        List<Customer> customerListSearch = CUSTOMER_SERVICE.search(keySearch, customerTypeSearch);
+        String customerTypeSearch = request.getParameter("customerTypeSearch");
+        String genderSearch = request.getParameter("genderSearch");
+        List<Customer> customerListSearch = null;
+        if(genderSearch.equals("")) {
+            customerListSearch = CUSTOMER_SERVICE.search(keySearch, customerTypeSearch);
+        } else {
+            int gender = Integer.parseInt(genderSearch);
+            customerListSearch = CUSTOMER_SERVICE.search(keySearch, customerTypeSearch, gender);
+        }
         Map<Integer, String> customerTypeMap = CUSTOMER_SERVICE.getCustomerTypeAll();
         request.setAttribute("customerTypeMap", customerTypeMap);
         request.setAttribute("customerList", customerListSearch);
         request.getRequestDispatcher("/customer/customer.jsp").forward(request, response);
-
     }
 
     private void edit(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -1,9 +1,25 @@
-#form-edit input{
-    padding: 6px;
-    margin-bottom: 12px;
+#form-edit input, select.w-100{
+    border-radius: 0;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #ffc107;
 }
 
-select.w-100 {
-    padding: 6px;
-    margin-bottom: 12px;
+.group-input{
+
+}
+.group-input select{
+    border: none;
+    border-bottom: 1px solid #ffc107;
+}
+.group-input div{
+    margin: 24px 0;
+}
+.group-input label{
+    display: block;
+    width: 25%;
+}
+
+table.table.table-striped.container {
+    box-shadow: 0.3px 0.3px 2px #ced2d6fa;
 }

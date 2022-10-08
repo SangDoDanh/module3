@@ -134,18 +134,18 @@ public class CustomerRepository implements ICustomerRepository {
     }
 
     @Override
-    public List<Customer> search(String keySearch, int customerTypeSearch) {
+    public List<Customer> search(String keySearch, String customerTypeSearch) {
         List<Customer> customerListSearch = new ArrayList<>();
         Connection conn = DAO.getConnection();
-        String sql = "select * from customer\n" +
-                "where name like ? and customer_type_id = ?;";
+        String sql = "select c.* \n" +
+                "from customer as c \n" +
+                "join customer_type as ct on c.customer_type_id = ct.id\n" +
+                "where c.name like ? and ct.name like ? and c.is_delete = false;";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1, "%"+keySearch+"%");
-            ps.setInt(2, customerTypeSearch);
+            ps.setString(2, "%"+customerTypeSearch+"%");
             ResultSet rs = ps.executeQuery();
-            //id, customer_type_id, name, date_of_birth, gender,
-            // id_card, phone_number, email, address
             while (rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
@@ -162,8 +162,72 @@ public class CustomerRepository implements ICustomerRepository {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return customerListSearch;
+    }
+
+
+
+    @Override
+    public List<Customer> search(String keySearch, String customerTypeSearch, int genderSeach) {
+        List<Customer> customerListSearch = new ArrayList<>();
+        Connection conn = DAO.getConnection();
+        String sql = "select c.* \n" +
+                "from customer as c \n" +
+                "join customer_type as ct on c.customer_type_id = ct.id\n" +
+                "where c.name like ? and ct.name like ? and c.is_delete = false and c.gender = ?;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, "%"+keySearch+"%");
+            ps.setString(2, "%"+customerTypeSearch+"%");
+            ps.setInt(3, genderSeach);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String name = rs.getString("name");
+                int customerTypeId = rs.getInt("customer_type_id");
+                Date Date = rs.getDate("date_of_birth");
+                int gender = rs.getInt("gender");
+                String idCard = rs.getString("id_card");
+                String phoneNumber = rs.getString("phone_number");
+                String email = rs.getString("email");
+                String address = rs.getString("address");
+                Customer customer = new Customer(id, name,customerTypeId, Date, gender, idCard, phoneNumber, email, address);
+                customerListSearch.add(customer);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return customerListSearch;
+    }
+
+    @Override
+    public String click() {
+        return "Hello hello hello";
+    }
+
+    @Override
+    public List<Customer> findAll() {
+        return null;
+    }
+
+    @Override
+    public String getSomething(int id) {
+        String result = "";
+        Connection conn = DAO.getConnection();
+        String sql = "select * from customer where id = ?";
+//        select * from customer where id = 10 and name = huy
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                result += rs.getString("name");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 
 }

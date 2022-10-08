@@ -1,80 +1,93 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: PC
-  Date: 10/6/2022
-  Time: 3:03 PM
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html>
+<html class="bg-light">
 <head>
     <title>Customer</title>
     <link rel="stylesheet" href="../bootstrap/bootstrap_5.2.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="../customer/css/customer.css">
 </head>
-<body class="container">
+<body class="container bg-light">
 <jsp:include page="/header/header.jsp" />
-<h1 style="margin-top: 32px">Page customer</h1>
+<h1 style="margin: 48px 0">Customer manager</h1>
 <div class="d-flex my-3 justify-content-end align-items-center">
     <a href="/customer?action=create" class="btn btn-outline-info">+ Add</a>
-    <form style="flex: 1;" action="/customer" method="post" class="d-flex justify-content-end m-0 p-0 align-items-center">
+    <form style="flex: 1;" action="/customer" method="get" class="d-flex justify-content-end m-0 p-0 align-items-center">
         <input type="text" name="action" value="search" hidden>
-        <input class="form-control w-auto" type="text" placeholder="Search by name..." name="keySearch">
-        <select class="form-select w-auto mx-4" name="customerTypeSearch">
+        <input class="form-control w-auto mx-2" type="text" placeholder="Search by name..." name="keySearch">
+        <select class="form-select w-auto mx-2" name="genderSearch">
+            <option value="" hidden>Gender</option>
+            <option value="1">Male</option>
+            <option value="0">FeMale</option>
+        </select>
+        <select class="form-select w-auto mx-2" name="customerTypeSearch">
             <option value="" hidden>Type</option>
             <c:forEach items="${customerTypeMap}" var="customerType">
-                <option value="${customerType.key}">${customerType.value}</option>
+                <option value="${customerType.value}">${customerType.value}</option>
             </c:forEach>
         </select>
-        <input class="btn btn-outline-success" type="submit" value="Search">
+        <input class="btn btn-outline-success mx-2" type="submit" value="Search" style="margin-right: 0!important;">
     </form>
 
 </div>
-<table class="table table-secondary table-hover container">
+<table class="table table-striped container">
     <tr class="table-active">
         <th>#</th>
         <th>Name</th>
         <th>Birth Day</th>
+        <th>Gender</th>
         <th>Email</th>
         <th>Type</th>
         <th>DELETE</th>
         <th>EDIT</th>
     </tr>
-    <c:forEach items="${customerList}" var="customer">
+    <c:forEach items="${customerList}" var="customer" varStatus="customerCount">
         <tr>
-            <td>${customer.id}</td>
+
+            <td>${customerCount.count}</td>
             <td>${customer.name}</td>
             <td>${customer.getDate()}</td>
-            <td>${customer.email}</td>
-            <td>${customerTypeMap.get(customer.customerTypeId)}</td>
             <td>
-                <button onclick="deleteCustomer(`${customer.id}`, `${customer.name}`)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                <c:if test="${customer.gender==1}">
+                    <span class="text-info">Male</span>
+                </c:if>
+                <c:if test="${customer.gender==0}">
+                    <span class="text-warning">FeMale</span>
+                </c:if>
+            </td>
+            <td>${customer.email}</td>
+            <td class="text-capitalize">${customerTypeMap.get(customer.customerTypeId)}</td>
+            <td>
+                <button onclick="deleteCustomer(`${customer.email}`, `${customer.name}`, `${customer.id}`)" type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
                     DELETE
                 </button>
             </td>
             <td>
-                <button onclick="editCustomer(`${customer.id}`, `${customer.name}`, `${customer.getDate()}`, `${customer.idCard}`, `${customer.phoneNumber}`, `${customer.email}`, `${customer.address}`)" type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#editModal">
-                    Edit
+                <button onclick="editCustomer(`${customer.id}`, `${customer.name}`, `${customer.getDate()}`, `${customer.idCard}`, `${customer.phoneNumber}`, `${customer.email}`, `${customer.address}`, `${customer.customerTypeId}`)" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">
+                    <span class="text-light">Edit</span>
                 </button>
             </td>
         </tr>
     </c:forEach>
 </table>
 
+<a href="/customer?action=click">ClickMe</a>
+<span>${hello}</span>
+<a href="/customer?action=getSomething">ClickMe</a>
+<span>${results}</span>
+
 <!-- Modal Delete-->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header bg-light">
-                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Customer</h1>
+        <div class="modal-content border-0">
+            <div class="modal-header bg-danger">
+                <h1 class="modal-title fs-5 text-light" id="deleteModalLabel">Delete Customer</h1>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>Bạn có muốn xóa
-                    <span id="name-customer" class="text-danger"></span>
-                    id: <span id="id-customer" class="text-danger"></span>
-                </p>
+                <p class="text-capitalize">Do you want to delete customer?</p>
+                <p class="px-4">Name: <span id="name-customer" class="text-danger mb-2"></span></p>
+                <p class="px-4">Email: <span id="email-customer" class="text-danger"></span></p>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
@@ -98,19 +111,49 @@
                     <h1 class="modal-title fs-5" id="editModalLabel">Edit Customer</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
-                    <input class="w-100" type="text" placeholder="Name" id="name" name="name"><br>
-                    <select class="w-100" name="customerTypeId">
-                        <c:forEach items="${customerTypeMap}" var="customerType">
-                            <option value="${customerType.key}">${customerType.value}</option>
-                        </c:forEach>
-                    </select><br>
-                    <input class="w-100" type="date" name="dayOfBirth" id="dayOfBirth"><br>
-                    <input type="radio" name="gender" value="1" checked> Nam    <input type="radio" name="gender" value="0"> NU<br>
-                    <input class="w-100" type="text" placeholder="Id card" name="idCard" id="idCard"><br>
-                    <input class="w-100" type="text" placeholder="phone number" id="phoneNumber" name="phoneNumber"><br>
-                    <input class="w-100" type="text" placeholder="email" name="email" id="email"><br>
-                    <input class="w-100" type="text" placeholder="address" name="address" id="address"><br>
+                <div class="modal-body group-input">
+                    <div class="d-flex align-items-center">
+                        <label for="name">Name: </label>
+                        <input class="w-75" type="text" placeholder="Name" id="name" name="name">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="customerType">Customer type: </label>
+                        <select class="w-75" name="customerTypeId" id="customerType">
+                            <c:forEach items="${customerTypeMap}" var="customerType">
+                                <option value="${customerType.key}">${customerType.value}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="dayOfBirth">Birth day: </label>
+                        <input class="w-75" type="date" name="dayOfBirth" id="dayOfBirth">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="idCard">Id card: </label>
+                        <input class="w-75" type="text" placeholder="Id card" name="idCard" id="idCard">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="phoneNumber">Phone number:</label>
+                        <input class="w-75" type="text" placeholder="phone number" id="phoneNumber" name="phoneNumber">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="email">Email:</label>
+                        <input class="w-75" type="text" placeholder="email" name="email" id="email">
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <label for="address">Address:</label>
+                        <input class="w-75" type="text" placeholder="address" name="address" id="address">
+                    </div>
+                    <div class="d-flex align-items-center justify-content-center">
+                        <label for="chk-male">
+                            <input type="radio" name="gender" value="1" checked id="chk-male">
+                            Male
+                        </label>
+                        <label for="chk-female">
+                            <input type="radio" name="gender" value="0" id="chk-female">
+                            FeMale
+                        </label>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-outline-warning" data-bs-dismiss="modal">Close</button>
@@ -125,15 +168,15 @@
 <!-- End Modal edit-->
 
 <script>
-    const eIdCustomerDelete = document.getElementById('id-customer');
+    const eEmailCustomerDelete = document.getElementById('email-customer');
     const eNameCustomerDelete = document.getElementById('name-customer');
-    function deleteCustomer(id, name){
-        console.log(id);
-        eIdCustomerDelete.innerText = id;
+    function deleteCustomer(email, name, id){
+        eEmailCustomerDelete.innerText = email;
         eNameCustomerDelete.innerText = name;
         document.getElementById('id-delete').value = id;
     }
-    function editCustomer(id,name, date, idCard,phoneNumber, email , address) {
+    function editCustomer(id,name, date, idCard,phoneNumber, email , address, customerTypeId) {
+        let eCustomerType = document.querySelectorAll('#customerType option');
         document.getElementById('name').value = name;
         document.getElementById('dayOfBirth').value = date;
         document.getElementById('idCard').value = idCard;
@@ -141,7 +184,12 @@
         document.getElementById('email').value = email;
         document.getElementById('address').value = address;
         document.getElementById('idEdit').value = id;
-        console.log(document.getElementById('date'));
+        console.log(eCustomerType);
+        eCustomerType.forEach(function (option) {
+           if(customerTypeId == option.value)
+            option.setAttribute('selected', 'true');
+        });
+
 
     }
 </script>
