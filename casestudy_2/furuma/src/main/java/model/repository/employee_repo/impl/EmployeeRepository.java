@@ -51,11 +51,48 @@ public class EmployeeRepository  implements IEmployeeRepository {
 
     @Override
     public boolean delete(int id) {
+        String sql = "update employee\n" +
+                "set is_remove = true\n" +
+                "where id = ?;";
+        Connection conn = DAO.getConnection();
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, id);
+            return ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    @Override
+    public boolean update(Employee employee) {
         return false;
     }
 
     @Override
-    public boolean update(Employee employee) {
-        return false;
+    public void edit(int id, Employee employee) {
+        Connection connection = DAO.getConnection();
+        String sql = "update employee\n" +
+                "set  \n" +
+                "name =?, date_of_birth = ?, id_card = ?, salary = ?, phone_number = ?, \n" +
+                "email = ?, address = ?, position_id = ?, education_degree_id = ?, division_id = ?\n" +
+                "where id = ?;";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1,employee.getName());
+            ps.setDate(2, employee.getDateOfBirth());
+            ps.setString(3, employee.getIdCard());
+            ps.setDouble(4, employee.getSalary());
+            ps.setString(5, employee.getPhoneNumber());
+            ps.setString(6, employee.getEmail());
+            ps.setString(7, employee.getAddress());
+            ps.setInt(8, employee.getPositionId());
+            ps.setInt(9, employee.getEducationDegreeId());
+            ps.setInt(10, employee.getDivisionId());
+            ps.setInt(11,id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

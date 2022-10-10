@@ -15,6 +15,7 @@ import java.util.Map;
 @WebServlet(name = "CustomerServlet", urlPatterns = "/customer")
 public class CustomerServlet extends HttpServlet {
     private static final ICustomerService CUSTOMER_SERVICE = new CustomerService();
+    private static final int AMOUNT_CUSTOMER = 5;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
@@ -39,9 +40,17 @@ public class CustomerServlet extends HttpServlet {
     }
 
     private void show(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Customer> customerList = CUSTOMER_SERVICE.getAll();
+        int countPage = CUSTOMER_SERVICE.getCountPage(AMOUNT_CUSTOMER);
+        String indexPageString = request.getParameter("indexPage");
+        int indexPage = CUSTOMER_SERVICE.getIndexPage(countPage, indexPageString);
+        int totalCustomer = CUSTOMER_SERVICE.getCountCustomer();
+        List<Customer> customerListPage = CUSTOMER_SERVICE.getAll(indexPage, AMOUNT_CUSTOMER);
         Map<Integer, String> customerTypeMap = CUSTOMER_SERVICE.getCustomerTypeAll();
-        request.setAttribute("customerList", customerList);
+        request.setAttribute("indexPage", indexPage);
+        request.setAttribute("countPage", countPage);
+        request.setAttribute("now", customerListPage.size());
+        request.setAttribute("total", totalCustomer);
+        request.setAttribute("customerList", customerListPage);
         request.setAttribute("customerTypeMap", customerTypeMap);
         request.getRequestDispatcher("/customer/customer.jsp").forward(request, response);
     }
@@ -61,7 +70,8 @@ public class CustomerServlet extends HttpServlet {
             case "edit":
                 edit(request, response);
                 break;
-
+            case "search":
+                search(request, response);
             default:
                 break;
         }
@@ -71,7 +81,7 @@ public class CustomerServlet extends HttpServlet {
         String keySearch = request.getParameter("keySearch");
         String customerTypeSearch = request.getParameter("customerTypeSearch");
         String genderSearch = request.getParameter("genderSearch");
-        List<Customer> customerListSearch = null;
+        List<Customer> customerListSearch;
         if(genderSearch.equals("")) {
             customerListSearch = CUSTOMER_SERVICE.search(keySearch, customerTypeSearch);
         } else {
@@ -110,9 +120,15 @@ public class CustomerServlet extends HttpServlet {
          String email = request.getParameter("email");
          String address =request.getParameter("address");
          Customer customer = new Customer(name, customerTypeId, date, gender, idCard, phoneNumber, email, address);
-         CUSTOMER_SERVICE.create(customer);
-         response.sendRedirect("/customer");
-//         show(request, response);
+         Map<String, String> validCustomerMap = CUSTOMER_SERVICE.valid(customer);
+         if(validCustomerMap.size() == 0) {
+             CUSTOMER_SERVICE.create(customer);
+             response.sendRedirect("/customer");
+         } else {
+             request.setAttribute("validCustomerMap", validCustomerMap);
+             request.getRequestDispatcher("/customer/add.jsp").forward(request, response);
+         }
+
     }
 
     private void delete(HttpServletRequest request, HttpServletResponse response) throws IOException {

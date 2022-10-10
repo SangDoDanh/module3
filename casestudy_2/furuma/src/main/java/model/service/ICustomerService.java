@@ -19,4 +19,14 @@ public interface ICustomerService {
     List<Customer> search(String keySearch, String customerTypeSearch);
 
     List<Customer> search(String keySearch, String customerTypeSearch, int gender);
+
+    int getCountPage(int amountCustomer);
+
+    List<Customer> getAll(int indexPage, int amountCustomer);
+
+    int getIndexPage(int countPage, String indexPageString);
+
+    int getCountCustomer();
+
+    Map<String, String> valid(Customer customer);
 }

@@ -8,4 +8,6 @@ public interface IEmployeeRepository {
     List<Employee> getAll();
     boolean delete(int id);
     boolean update(Employee employee);
+
+    void edit(int id, Employee employee);
 }

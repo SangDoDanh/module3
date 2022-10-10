@@ -19,4 +19,8 @@ public interface ICustomerRepository {
     List<Customer> search(String keySearch, String customerTypeSearch);
 
     List<Customer> search(String keySearch, String customerTypeSearch, int gender);
+
+    int getCountPage();
+
+    List<Customer> getAll(int indexPage, int amountCustomer);
 }

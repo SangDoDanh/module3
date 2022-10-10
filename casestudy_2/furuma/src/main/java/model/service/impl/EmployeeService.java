@@ -14,4 +14,14 @@ public class EmployeeService implements IEmployeeService {
     public List<Employee> getAll() {
         return employeeRepository.getAll();
     }
+
+    @Override
+    public void delete(int idDelete) {
+        employeeRepository.delete(idDelete);
+    }
+
+    @Override
+    public void edit(int id, Employee employee) {
+        employeeRepository.edit(id, employee);
+    }
 }

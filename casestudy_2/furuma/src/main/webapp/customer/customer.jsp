@@ -8,10 +8,10 @@
 </head>
 <body class="container bg-light">
 <jsp:include page="/header/header.jsp" />
-<h1 style="margin: 48px 0">Customer manager</h1>
+<h1 style="margin: 24px 0">Customer manager</h1>
 <div class="d-flex my-3 justify-content-end align-items-center">
     <a href="/customer?action=create" class="btn btn-outline-info">+ Add</a>
-    <form style="flex: 1;" action="/customer" method="get" class="d-flex justify-content-end m-0 p-0 align-items-center">
+    <form style="flex: 1;" action="/customer" method="post" class="d-flex justify-content-end m-0 p-0 align-items-center">
         <input type="text" name="action" value="search" hidden>
         <input class="form-control w-auto mx-2" type="text" placeholder="Search by name..." name="keySearch">
         <select class="form-select w-auto mx-2" name="genderSearch">
@@ -62,6 +62,7 @@
                 </button>
             </td>
             <td>
+
                 <button onclick="editCustomer(`${customer.id}`, `${customer.name}`, `${customer.getDate()}`, `${customer.idCard}`, `${customer.phoneNumber}`, `${customer.email}`, `${customer.address}`, `${customer.customerTypeId}`)" type="button" class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal">
                     <span class="text-light">Edit</span>
                 </button>
@@ -69,6 +70,26 @@
         </tr>
     </c:forEach>
 </table>
+
+<div class="page d-flex justify-content-between my-3">
+    <div class="d-flex" style="font-size: 12px">
+        Now<span class="text-info mx-1">${now} </span>
+        /<span class="text-warning mx-1"> ${total}</span>
+        <span>Customer</span>
+    </div>
+    <div class="d-flex">
+        <a href="/customer?indexPage=${indexPage - 1}" class="mx-2 nav-link text-info">Prev</a>
+        <c:forEach begin="1" end="${countPage}" var="i">
+            <c:if test="${indexPage == i}">
+                <a href="/customer?indexPage=${i}" class="mx-2 nav-link text-info">${i}</a>
+            </c:if>
+            <c:if test="${indexPage != i}">
+                <a href="/customer?indexPage=${i}" class="mx-2 nav-link">${i}</a>
+            </c:if>
+        </c:forEach>
+        <a href="/customer?indexPage=${indexPage + 1}" class="mx-2 nav-link text-info" style="margin-right: 0px !important;">Next</a>
+    </div>
+</div>
 
 <!-- Modal Delete-->
 <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -184,8 +205,6 @@
            if(customerTypeId == option.value)
             option.setAttribute('selected', 'true');
         });
-
-
     }
 </script>
 <script src="../bootstrap/bootstrap_5.2.2/js/bootstrap.min.js"></script>

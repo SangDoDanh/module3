@@ -5,6 +5,7 @@ import model.repository.customer_repo.ICustomerRepository;
 import model.repository.customer_repo.impl.CustomerRepository;
 import model.service.ICustomerService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -27,6 +28,7 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public void create(Customer customer) {
+
         CUSTOMER_REPOSITORY.create(customer);
     }
 
@@ -43,5 +45,54 @@ public class CustomerService implements ICustomerService {
     @Override
     public List<Customer> search(String keySearch, String customerTypeSearch, int gender) {
         return CUSTOMER_REPOSITORY.search(keySearch, customerTypeSearch, gender);
+    }
+
+    @Override
+    public int getCountPage(int amountPage) {
+        int countPage = CUSTOMER_REPOSITORY.getCountPage();
+        if(countPage == 0) {
+            return 1;
+        }
+        if(countPage % amountPage == 0) {
+            return countPage/ amountPage;
+        }
+        return (countPage/ amountPage) + 1;
+    }
+
+    @Override
+    public List<Customer> getAll(int indexPage, int amountCustomer) {
+        return CUSTOMER_REPOSITORY.getAll(indexPage, amountCustomer);
+    }
+
+    @Override
+    public int getIndexPage(int countPage, String indexPageString) {
+        int pageIndex = 1;
+        if(indexPageString != null) {
+            pageIndex = Integer.parseInt(indexPageString);
+            if(pageIndex > countPage) {
+                pageIndex = 1;
+            } else if(pageIndex == 0) {
+                pageIndex = countPage;
+            }
+        }
+        return pageIndex;
+    }
+
+    @Override
+    public int getCountCustomer() {
+        return CUSTOMER_REPOSITORY.getCountPage();
+    }
+
+    @Override
+    public Map<String, String> valid(Customer customer) {
+        Map<String, String> mapError = new HashMap<>();
+        String regexEmpty = "";
+        String regexName = "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u";
+        if(customer.getName().equals("")) {
+            mapError.put("name", "Khong duoc de trong");
+        } else {
+
+        }
+        return mapError;
     }
 }
