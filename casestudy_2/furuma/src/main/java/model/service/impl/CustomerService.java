@@ -86,15 +86,9 @@ public class CustomerService implements ICustomerService {
     @Override
     public Map<String, String> valid(Customer customer) {
         Map<String, String> mapError = new HashMap<>();
-        String regexEmpty = "";
         String regexName = "/^[a-zA-ZAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ\\s]+$/";
-
-        if(customer.getName().equals("")) {
-            mapError.put("name", "Khong duoc de trong");
-        } else if(!customer.getName().matches(regexName)){
-            mapError.put("name", "Ten Khong duoc chua so");
-        } else if(!checkGood(customer.getName())){
-            mapError.put("name", "Ten phai in hoa chu cai dau");
+        if(customer.getName().equals("") || !customer.getName().matches(regexName) || !checkGood(customer.getName())) {
+            mapError.put("name", "Ten Khong duoc de trong , Khong duoc chua so, phai in hoa chu cai dau");
         }
         return mapError;
     }
