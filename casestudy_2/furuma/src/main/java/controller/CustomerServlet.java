@@ -125,6 +125,8 @@ public class CustomerServlet extends HttpServlet {
              CUSTOMER_SERVICE.create(customer);
              response.sendRedirect("/customer");
          } else {
+             Map<Integer, String> customerTypeMap = CUSTOMER_SERVICE.getCustomerTypeAll();
+             request.setAttribute("customerTypeMap", customerTypeMap);
              request.setAttribute("validCustomerMap", validCustomerMap);
              request.getRequestDispatcher("/customer/add.jsp").forward(request, response);
          }

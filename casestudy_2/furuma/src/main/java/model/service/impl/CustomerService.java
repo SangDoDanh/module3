@@ -87,12 +87,30 @@ public class CustomerService implements ICustomerService {
     public Map<String, String> valid(Customer customer) {
         Map<String, String> mapError = new HashMap<>();
         String regexEmpty = "";
-        String regexName = "/^[a-zA-ZàáâäãåąčćęèéêëėįìíîïłńòóôöõøùúûüųūÿýżźñçčšžÀÁÂÄÃÅĄĆČĖĘÈÉÊËÌÍÎÏĮŁŃÒÓÔÖÕØÙÚÛÜŲŪŸÝŻŹÑßÇŒÆČŠŽ∂ð ,.'-]+$/u";
+        String regexName = "/^[a-zA-ZAÁÀẢÃẠÂẤẦẨẪẬĂẮẰẲẴẶEÉÈẺẼẸÊẾỀỂỄỆIÍÌỈĨỊOÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢUÚÙỦŨỤƯỨỪỬỮỰYÝỲỶỸỴĐaáàảãạâấầẩẫậăắằẳẵặeéèẻẽẹêếềểễệiíìỉĩịoóòỏõọôốồổỗộơớờởỡợuúùủũụưứừửữựyýỳỷỹỵđ\\s]+$/";
+
         if(customer.getName().equals("")) {
             mapError.put("name", "Khong duoc de trong");
-        } else {
-
+        } else if(!customer.getName().matches(regexName)){
+            mapError.put("name", "Ten Khong duoc chua so");
+        } else if(!checkGood(customer.getName())){
+            mapError.put("name", "Ten phai in hoa chu cai dau");
         }
         return mapError;
+    }
+
+    private boolean checkGood(String words) {
+        String wordsArray[] = words.split(" ");
+        for(String word : wordsArray) {
+            String wordFirst = word.substring(0,1);
+            if(!wordFirst.equals(wordFirst.toUpperCase()))
+                return false;
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        System.out.println( new CustomerService().checkGood("Do danh sang"));
+        System.out.println(new CustomerService().checkGood("mot so nao do"));
     }
 }

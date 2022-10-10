@@ -20,6 +20,7 @@
         <pre>
             <input type="text" hidden value="create" name="action">
         Name                <input type="text" placeholder="Name" name="name"><br>
+        <span>${validCustomerMap.get("name")}</span>
         CustomerTypeId      <select name="customerTypeId">
                                 <c:forEach items="${customerTypeMap}" var="customerType">
                                     <option value="${customerType.key}">${customerType.value}</option>
